@@ -1,0 +1,25 @@
+def subset_sum_util(nums, target_sum, current_sum, start, path, result):
+ if current_sum == target_sum:
+ result.append(path.copy())
+ return
+ for i in range(start, len(nums)):
+ if current_sum + nums[i] <= target_sum:
+ path.append(nums[i])
+ subset_sum_util(nums, target_sum, current_sum + nums[i], i + 1, path, result)
+ path.pop()
+def find_subset_sum(nums, target_sum):
+ result = []
+ subset_sum_util(nums, target_sum, 0, 0, [], result)
+ if not result:
+ print("No subset with sum {} exists".format(target_sum))
+ else:
+ print("Subsets with sum {} found".format(target_sum))
+ for subset in result:
+ print(subset)
+if __name__ == "__main__":
+ n = int(input("Enter the number of elements: "))
+ set_of_numbers = []
+ for i in range(n):
+ set_of_numbers.append(int(input(f"Enter the {i + 1} element: ")))
+ target_sum = int(input("Enter the sum: "))
+ find_subset_sum(set_of_numbers, target_sum)
