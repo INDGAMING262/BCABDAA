@@ -1,0 +1,15 @@
+def knapsack(capacity, weights, values, n):
+ if n == 0 or capacity == 0:
+ return 0
+ if weights[n - 1] > capacity:
+ return knapsack(capacity, weights, values, n - 1)
+ else:
+ include_item = values[n - 1] + knapsack(capacity - weights[n - 1], weights, values, n - 1)
+ exclude_item = knapsack(capacity, weights, values, n - 1)
+ return max(include_item, exclude_item)
+capacity = 10
+weights = [7, 3, 4, 5]
+values = [42, 12, 40, 25]
+n = len(values)
+result = knapsack(capacity, weights, values, n)
+print(f"The maximum value that can be obtained is {result}")
