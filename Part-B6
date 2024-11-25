@@ -1,0 +1,28 @@
+import itertools
+def calculate_total_distance(tour, distance_matrix):
+ total_distance = 0
+ for i in range(len(tour) - 1):
+ total_distance += distance_matrix[tour[i]][tour[i + 1]]
+ total_distance += distance_matrix[tour[-1]][tour[0]]
+ return total_distance
+def tsp_bruteforce(distance_matrix):
+ num_cities = len(distance_matrix)
+ cities = list(range(num_cities))
+ shortest_tour = None
+ shortest_distance = float('inf')
+ for tour in itertools.permutations(cities):
+ tour_distance = calculate_total_distance(tour, distance_matrix)
+ if tour_distance < shortest_distance:
+ shortest_distance = tour_distance
+ shortest_tour = tour
+ return shortest_tour, shortest_distance
+if __name__ == "__main__":
+ distance_matrix = [
+ [0, 10, 15, 20],
+ [10, 0, 35, 25],
+ [15, 35, 0, 30],
+ [15, 25, 30, 0]
+ ]
+shortest_tour, shortest_distance = tsp_bruteforce(distance_matrix)
+print("Shortest Tour: ", shortest_tour)
+print("Shortest Distance: ", shortest_distance)
