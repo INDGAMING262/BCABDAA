@@ -1,0 +1,14 @@
+def job_sequencing_with_deadlines(jobs):
+ jobs.sort(key=lambda x: x[2], reverse=True)
+ max_deadline = max(job[1] for job in jobs)
+ schedule = [-1] * max_deadline
+ for job in jobs:
+ deadline = job[1] - 1
+ while deadline >= 0 and schedule[deadline] != -1:
+ deadline = -1
+ if deadline >= 0:
+ schedule[deadline] = job[0]
+ return [job for job in schedule if job != -1]
+jobs = [(1, 4, 20), (2, 1, 10), (3, 1, 40), (4, 1, 30)]
+result = job_sequencing_with_deadlines(jobs)
+print("Job sequence: ", result)
